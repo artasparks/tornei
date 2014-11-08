@@ -1,0 +1,76 @@
+digraph zed {
+  Tournament_Results;
+  Tournament;
+
+  subgraph cluster_paring_system {
+    Swiss_McMahon
+    KnockOut
+    RoundRobin
+    Swiss
+    Instant
+    Matthews_Accelerated
+
+    label="Paring System"
+  }
+
+  subgraph cluster_tiebreak_method {
+    Sum_of_Opp_Scores
+    Sum_of_Defeated_Opp_Scores
+    Playoff
+    Chance
+    label="Tiebreak Method"
+  }
+
+  subgraph cluster_ratings_system {
+    AGA
+    ELO
+    EGF_ELO
+    Glicko2
+    WholeHistoryRating
+    TrueSkill
+    TrueSkill_Through_Time
+    Bayeselo
+    DecayedHistory
+    Edo
+    label="Ratings System"
+  }
+
+  subgraph cluster_eventualities {
+    Corrections
+    Nullifications
+    label="Eventualities"
+  }
+
+  Swiss_McMahon -> Tournament;
+  KnockOut -> Tournament;
+  RoundRobin-> Tournament;
+  Swiss_McMahon -> Tournament;
+  Swiss -> Tournament;
+  Instant -> Tournament;
+  Matthews_Accelerated -> Tournament;
+
+  Tournament -> Sum_of_Opp_Scores;
+  Tournament -> Playoff;
+
+  Sum_of_Opp_Scores -> Sum_of_Defeated_Opp_Scores;
+  Sum_of_Defeated_Opp_Scores -> Chance;
+
+  Sum_of_Defeated_Opp_Scores -> Tournament_Results;
+  Sum_of_Opp_Scores -> Tournament_Results;
+  Playoff -> Tournament_Results;
+  Chance -> Tournament_Results;
+
+  Corrections -> Tournament_Results;
+  Nullifications -> Tournament_Results;
+
+  Tournament_Results -> AGA;
+  Tournament_Results -> ELO;
+  Tournament_Results -> EGF_ELO;
+  Tournament_Results -> Glicko2;
+  Tournament_Results -> WholeHistoryRating;
+  Tournament_Results -> TrueSkill;
+  Tournament_Results -> TrueSkill_Through_Time;
+  Tournament_Results -> Bayeselo;
+  Tournament_Results -> DecayedHistory;
+  Tournament_Results -> Edo;
+}
